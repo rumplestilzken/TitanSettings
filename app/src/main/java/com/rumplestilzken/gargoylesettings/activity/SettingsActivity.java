@@ -1,16 +1,16 @@
-package com.rumplestilzken.gargoylesettings;
+package com.rumplestilzken.gargoylesettings.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+
+import com.rumplestilzken.gargoylesettings.R;
+import com.rumplestilzken.gargoylesettings.settings.SettingsChangeListener;
+import com.rumplestilzken.gargoylesettings.provider.RootProvider;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -33,6 +33,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         settings.registerOnSharedPreferenceChangeListener(preferenceBinder);
+
+        RootProvider.EnableRoot();
 
 //        Button save_button = (Button)findViewById(R.id.save_button);
 //        save_button.setOnClickListener(new View.OnClickListener(){

@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:enabled="true"
+            app:key="key_enable_double_tap_home_button"
+            app:persistent="true"
+            app:title="@string/enable_double_tap_home_button" />
+
+        <SwitchPreferenceCompat
+            app:enabled="true"
+            app:key="key_enable_touch_scrolling"
+            app:persistent="true"
+            app:title="@string/enable_touch_scrolling" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
