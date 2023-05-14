@@ -1,21 +1,57 @@
 package com.rumplestilzken.gargoylesettings;
 
-import android.app.ActionBar;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends AppCompatActivity {
+
+    private static final SharedPreferences.OnSharedPreferenceChangeListener preferenceBinder = SettingsChangeListener.INSTANCE;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActionBar();
+        setContentView(R.layout.settings_activity);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.settings, new SettingsFragment())
+                    .commit();
+        }
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        settings.registerOnSharedPreferenceChangeListener(preferenceBinder);
+
+//        Button save_button = (Button)findViewById(R.id.save_button);
+//        save_button.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+////                PreferenceManager.setDefaultValues(view.getContext(), R.xml.root_preferences, false);
+//
+//                Log.d("SettingsActivity", "Touchpad Scrolling:" + (settings.getBoolean(Settings.getTouchpadScrolling(), false) ? "Enabled" : "Disabled"));
+//            }
+//        });
     }
 
-    private final void setupActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
+    public static class SettingsFragment extends PreferenceFragmentCompat {
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        }
     }
+
+
 }

@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.rumplestilzken.titansettings'
+    namespace 'com.rumplestilzken.gargoylesettings'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.rumplestilzken.titansettings"
+        applicationId "com.rumplestilzken.gargoylesettings"
         minSdk 24
         targetSdk 33
         versionCode 1
