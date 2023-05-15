@@ -34,10 +34,10 @@ public class SettingsChangeListener implements SharedPreferences.OnSharedPrefere
     private void processTouchpadScrolling(SharedPreferences sharedPreferences) {
         if(sharedPreferences.getBoolean(Settings.getTouchpadScrolling(), false))
         {
-            TouchpadProcessor.enableTouchpadScrolling();
+            TouchpadProcessor.enableTouchpadScrolling(false);
         }
         else {
-            TouchpadProcessor.disableTouchpadScrolling();
+            TouchpadProcessor.disableTouchpadScrolling(false);
         }
     }
 }
