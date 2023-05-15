@@ -11,6 +11,7 @@ import androidx.preference.PreferenceManager;
 import com.rumplestilzken.gargoylesettings.R;
 import com.rumplestilzken.gargoylesettings.settings.SettingsChangeListener;
 import com.rumplestilzken.gargoylesettings.provider.RootProvider;
+import com.rumplestilzken.gargoylesettings.touchpad.TouchpadProcessor;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -35,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
         settings.registerOnSharedPreferenceChangeListener(preferenceBinder);
 
         RootProvider.EnableRoot();
+        TouchpadProcessor.setContext(getApplicationContext());
+
 
 //        Button save_button = (Button)findViewById(R.id.save_button);
 //        save_button.setOnClickListener(new View.OnClickListener(){

@@ -21,6 +21,7 @@ public class SettingsChangeListener implements SharedPreferences.OnSharedPrefere
 
     private void processDoubleTapHomeButton(SharedPreferences sharedPreferences) {
         Log.d("SettingsActivity", "Double tap home button:" + (sharedPreferences.getBoolean(Settings.getDoubleTapHomeButton(), false) ? "Enabled" : "Disabled"));
+        //TODO: Double Tap Home Button Event
 //        if(sharedPreferences.getBoolean(Settings.getDoubleTapHomeButton(), false))
 //        {
 //
