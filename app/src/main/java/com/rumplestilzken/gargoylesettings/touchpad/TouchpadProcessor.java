@@ -32,10 +32,10 @@ public class TouchpadProcessor {
 
     public static void enableTouchpadScrolling(boolean service) {
         Log.d("TouchpadProcessor", "Starting uinput_titan");
-        ServiceProcessor.startOrStop(true, "uninput_titan");
+        ServiceProcessor.startOrStop(true, "uinput_titan");
         if(!service)
         {
-            RebootProvider.setRequiresReboot(true);
+//            RebootProvider.setRequiresReboot(true);
             RootProvider.Remount();
             RootProvider.RunAsRoot("rm /etc/excluded-input-devices.xml");
         }
@@ -43,12 +43,14 @@ public class TouchpadProcessor {
 
     public static void disableTouchpadScrolling(boolean service) {
        Log.d("TouchpadProcessor", "Stopping uinput_titan");
-       ServiceProcessor.startOrStop(false, "uninput_titan");
+       ServiceProcessor.startOrStop(false, "uinput_titan");
        if(!service) {
-           RebootProvider.setRequiresReboot(true);
+//           RebootProvider.setRequiresReboot(true);
            RootProvider.Remount();
            RootProvider.RunAsRoot("touch /etc/excluded-input-devices.xml");
            try {
+               //excluded-input-devices.xml is needed to fix a bug where UI elements are selected
+               //when the keyboard is touched.
                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                    byte[] bytes = context.getResources().openRawResource(R.raw.excluded_input_devices).readAllBytes();
                    String string = new String(bytes, StandardCharsets.UTF_8);
