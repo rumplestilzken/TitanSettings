@@ -1,5 +1,7 @@
 package com.rumplestilzken.gargoylesettings.provider;
 
+import android.util.Log;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -21,9 +23,13 @@ public class RootProvider {
 
             os.flush();
             os.close();
-            try { p.waitFor(); } catch (InterruptedException e) {}
+            try { p.waitFor(); } catch (InterruptedException e) { Log.d("EXCEPTION", e.toString());}
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void Remount() {
+        RunAsRoot("remount");
     }
 }
