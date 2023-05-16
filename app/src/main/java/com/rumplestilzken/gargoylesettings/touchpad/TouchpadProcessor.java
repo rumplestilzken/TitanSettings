@@ -35,7 +35,7 @@ public class TouchpadProcessor {
         ServiceProcessor.startOrStop(true, "uinput_titan");
         if(!service)
         {
-//            RebootProvider.setRequiresReboot(true);
+            RebootProvider.setRequiresReboot(true);
             RootProvider.Remount();
             RootProvider.RunAsRoot("rm /etc/excluded-input-devices.xml");
         }
@@ -45,7 +45,7 @@ public class TouchpadProcessor {
        Log.d("TouchpadProcessor", "Stopping uinput_titan");
        ServiceProcessor.startOrStop(false, "uinput_titan");
        if(!service) {
-//           RebootProvider.setRequiresReboot(true);
+           RebootProvider.setRequiresReboot(true);
            RootProvider.Remount();
            RootProvider.RunAsRoot("touch /etc/excluded-input-devices.xml");
            try {
