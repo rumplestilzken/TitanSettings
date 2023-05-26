@@ -18,4 +18,5 @@
     <string name="key_enable_touch_scrolling">key_enable_touch_scrolling</string>
     <string name="key_enable_double_tap_home_button">key_enable_double_tap_home_button</string>
     <string name="save_button">Save</string>
+    <string name="enable_mini_mode">Enable Mini Mode</string>
 </resources>

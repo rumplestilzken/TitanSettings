@@ -4,9 +4,9 @@
 
         <SwitchPreferenceCompat
             app:enabled="true"
-            app:key="key_enable_double_tap_home_button"
+            app:key="key_enable_mini_mode"
             app:persistent="true"
-            app:title="@string/enable_double_tap_home_button" />
+            app:title="@string/enable_mini_mode" />
 
         <SwitchPreferenceCompat
             app:enabled="true"

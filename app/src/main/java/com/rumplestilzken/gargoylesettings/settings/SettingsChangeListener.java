@@ -3,6 +3,7 @@ package com.rumplestilzken.gargoylesettings.settings;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.rumplestilzken.gargoylesettings.provider.MiniModeProvider;
 import com.rumplestilzken.gargoylesettings.touchpad.TouchpadProcessor;
 
 public class SettingsChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -13,22 +14,20 @@ public class SettingsChangeListener implements SharedPreferences.OnSharedPrefere
         if(s.equals(Settings.getTouchpadScrolling())) {
             processTouchpadScrolling(sharedPreferences);
         }
-        if(s.equals(Settings.getDoubleTapHomeButton()))
+        if(s.equals(Settings.getMiniMode()))
         {
-            processDoubleTapHomeButton(sharedPreferences);
+            processMiniMode(sharedPreferences);
         }
     }
 
-    private void processDoubleTapHomeButton(SharedPreferences sharedPreferences) {
-        Log.d("SettingsActivity", "Double tap home button:" + (sharedPreferences.getBoolean(Settings.getDoubleTapHomeButton(), false) ? "Enabled" : "Disabled"));
-        //TODO: Double Tap Home Button Event
-//        if(sharedPreferences.getBoolean(Settings.getDoubleTapHomeButton(), false))
-//        {
-//
-//        }
-//        else {
-//
-//        }
+    private void processMiniMode(SharedPreferences sharedPreferences) {
+        if(sharedPreferences.getBoolean(Settings.getMiniMode(), false))
+        {
+            MiniModeProvider.enableMiniMode();
+        }
+        else {
+            MiniModeProvider.disableMiniMode();
+        }
     }
 
     private void processTouchpadScrolling(SharedPreferences sharedPreferences) {
