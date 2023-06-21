@@ -3,6 +3,8 @@ package com.rumplestilzken.gargoylesettings.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
@@ -18,6 +20,22 @@ import com.rumplestilzken.gargoylesettings.provider.RootProvider;
 import com.rumplestilzken.gargoylesettings.touchpad.TouchpadProcessor;
 
 public class SettingsActivity extends AppCompatActivity {
+    SensorManager sm;
+    Sensor accelorometer;
+
+    MiniModeProvider miniModeProvider = new MiniModeProvider();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sm.registerListener(miniModeProvider, accelorometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sm.unregisterListener(miniModeProvider);
+    }
 
     private static final SharedPreferences.OnSharedPreferenceChangeListener preferenceBinder = SettingsChangeListener.INSTANCE;
 
@@ -58,6 +76,19 @@ public class SettingsActivity extends AppCompatActivity {
             editor.apply();
         }
         MiniModeProvider.setDisplayWidth(width);
+
+        int height = settings.getInt("original_display_height", -1);
+        if(height == -1)
+        {
+            SharedPreferences.Editor editor = settings.edit();
+            height = Resources.getSystem().getDisplayMetrics().heightPixels;
+            editor.putInt("original_display_height", height);
+            editor.apply();
+        }
+        MiniModeProvider.setDisplayHeight(height);
+
+        sm = (SensorManager)getSystemService(SENSOR_SERVICE);
+        accelorometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         RootProvider.EnableRoot();
         TouchpadProcessor.setContext(getApplicationContext());

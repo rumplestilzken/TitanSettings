@@ -23,7 +23,7 @@ public class SettingsChangeListener implements SharedPreferences.OnSharedPrefere
     private void processMiniMode(SharedPreferences sharedPreferences) {
         if(sharedPreferences.getBoolean(Settings.getMiniMode(), false))
         {
-            MiniModeProvider.enableMiniMode();
+            MiniModeProvider.enableMiniMode(MiniModeProvider.orientation.Portrait);
         }
         else {
             MiniModeProvider.disableMiniMode();
