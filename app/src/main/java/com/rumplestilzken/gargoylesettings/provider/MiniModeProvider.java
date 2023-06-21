@@ -48,25 +48,8 @@ public class MiniModeProvider implements SensorEventListener {
         isEnabled = true;
         WindowManager wm = (WindowManager) SettingsActivity.getContext().getSystemService(Context.WINDOW_SERVICE);
 
-        Point realSize = new Point();
-        Display d = wm.getDefaultDisplay();
-        int screenWidth, screenHeight;
-        try {
-            Display.class.getMethod("getRealSize", Point.class).invoke(
-                    d, realSize);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        screenWidth = realSize.x;
-        screenHeight = realSize.y;
-
-        int width = screenWidth;
         double miniModeMultiplier = displayWidth/3.3;
-        int newWidth;
+        int newWidth, screenHeight;
 
         if(orientation == MiniModeProvider.orientation.Landscape_Left ||
         orientation == MiniModeProvider.orientation.Landscape_Right)
