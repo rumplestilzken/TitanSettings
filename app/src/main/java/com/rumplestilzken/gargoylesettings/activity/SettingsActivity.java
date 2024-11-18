@@ -3,10 +3,14 @@ package com.rumplestilzken.gargoylesettings.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowMetrics;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,12 +70,21 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         settings.registerOnSharedPreferenceChangeListener(preferenceBinder);
 
+        WindowMetrics wm = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            wm = getWindowManager().getMaximumWindowMetrics();
+        }
+
         //Store the original dispaly width, one time, before ever having a chance to change it.
         int width = settings.getInt("original_display_width", -1);
         if(width == -1)
         {
             SharedPreferences.Editor editor = settings.edit();
-            width = Resources.getSystem().getDisplayMetrics().widthPixels;
+//            width = Resources.getSystem().getDisplayMetrics().widthPixels;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                width = wm.getBounds().width();
+            }
             editor.putInt("original_display_width", width);
             editor.apply();
         }
@@ -81,7 +94,10 @@ public class SettingsActivity extends AppCompatActivity {
         if(height == -1)
         {
             SharedPreferences.Editor editor = settings.edit();
-            height = Resources.getSystem().getDisplayMetrics().heightPixels;
+//            height = Resources.getSystem().getDisplayMetrics().heightPixels;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                height = wm.getBounds().height();
+            }
             editor.putInt("original_display_height", height);
             editor.apply();
         }

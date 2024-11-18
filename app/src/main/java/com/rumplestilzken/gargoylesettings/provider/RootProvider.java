@@ -2,10 +2,8 @@ package com.rumplestilzken.gargoylesettings.provider;
 
 import android.util.Log;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class RootProvider {
     public static void EnableRoot()
