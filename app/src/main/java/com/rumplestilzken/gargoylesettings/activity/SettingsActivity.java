@@ -19,11 +19,16 @@ import androidx.preference.PreferenceManager;
 
 import com.rumplestilzken.gargoylesettings.R;
 import com.rumplestilzken.gargoylesettings.provider.MiniModeProvider;
+import com.rumplestilzken.gargoylesettings.provider.NativeProvider;
 import com.rumplestilzken.gargoylesettings.settings.SettingsChangeListener;
 import com.rumplestilzken.gargoylesettings.provider.RootProvider;
 import com.rumplestilzken.gargoylesettings.touchpad.TouchpadProcessor;
 
 public class SettingsActivity extends AppCompatActivity {
+    static {
+        System.loadLibrary("jni_titan");
+    }
+
     SensorManager sm;
     Sensor accelorometer;
 
@@ -48,12 +53,15 @@ public class SettingsActivity extends AppCompatActivity {
     public static Context getContext(){
         return context;
     }
+    public NativeProvider nativeProvider = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         context = getApplicationContext();
+
+        nativeProvider = new NativeProvider(this);
 
         setContentView(R.layout.settings_activity);
         if (savedInstanceState == null) {
